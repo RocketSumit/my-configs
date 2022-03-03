@@ -17,7 +17,7 @@ ZSH_THEME="robbyrussell"
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
-CASE_SENSITIVE="true"
+CASE_SENSITIVE="false"
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
@@ -72,7 +72,7 @@ ENABLE_CORRECTION="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git git-flow colored-man-pages zsh-syntax-highlighting zsh-autosuggestions pip python vi-mode colorize tmux)
 
-ZSH_TMUX_AUTOSTART=false
+ZSH_TMUX_AUTOSTART="true"
 
 source $ZSH/oh-my-zsh.sh
 
@@ -134,5 +134,5 @@ unset __conda_setup
 conda activate panda
 # source /opt/ros/noetic/setup.zsh
 source ~/catkin_ws/devel/setup.zsh
-export ROS_MASTER_URI=http://130.149.238.242:11311
+export ROS_MASTER_URI=http://130.149.238.195:11311
 export ROS_IP=130.149.238.142
