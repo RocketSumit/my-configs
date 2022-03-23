@@ -1,10 +1,12 @@
 [global_config]
+  title_hide_sizetext = True
   title_transmit_fg_color = "#2E3440"
   title_transmit_bg_color = "#88C0D0"
   title_receive_fg_color = "#2E3440"
   title_receive_bg_color = "#8FBCBB"
   title_inactive_fg_color = "#D8DEE9"
   title_inactive_bg_color = "#4C566A"
+  inactive_color_offset = 0.8055555555555556
   enabled_plugins = LaunchpadBugURLHandler, LaunchpadCodeURLHandler, APTURLHandler, TerminatorThemes
   suppress_multiple_term_dialog = True
   always_split_with_profile = True
@@ -22,18 +24,13 @@
     foreground_color = "#ebdbb2"
     scrollback_infinite = True
     use_system_font = False
-  [[nord]]
-    background_color = "#2e3440"
-    cursor_color = "#D8DEE9"
-    foreground_color = "#d8dee9"
-    palette = "#3B4252:#BF616A:#A3BE8C:#EBCB8B:#81A1C1:#B48EAD:#88C0D0:#E5E9F0:#4C566A:#BF616A:#A3BE8C:#EBCB8B:#81A1C1:#B48EAD:#8F  BCBB:#ECEFF4"
-  [[Gruvbox Dark]]
-    background_color = "#1e1e1e"
-    cursor_color = "#bbbbbb"
-    font = Ubuntu Mono 15
-    foreground_color = "#e6d4a3"
+  [[After Dark]]
+    background_color = "#10111b"
+    cursor_color = "#aaaaaa"
+    font = Fira Code Medium 14
+    foreground_color = "#ebdbb2"
     scrollback_infinite = True
-    palette = "#161819:#f73028:#aab01e:#f7b125:#719586:#c77089:#7db669:#faefbb:#7f7061:#be0f17:#868715:#cc881a:#377375:#a04b73:#578e57:#e6d4a3"
+    palette = "#2e3436:#ef4a9e:#00d2bc:#e7ca7a:#9399fa:#ca5bcc:#86d079:#d3d7cf:#555753:#ef4a9e:#00d2bc:#e7ca7a:#9399fa:#ca5bcc:#86d079:#eeeeec"
     use_system_font = False
 [layouts]
   [[default]]
@@ -41,10 +38,10 @@
       type = Window
       parent = ""
       order = 0
-      position = 908:311
-      maximised = False
+      position = 1920:0
+      maximised = True
       fullscreen = False
-      size = 734, 451
+      size = 1920, 1043
       title = rocketsumit@spuntu:~
       last_active_term = 78cd1fba-08c2-4edb-bcae-f4796affcb42
       last_active_window = True
@@ -52,6 +49,6 @@
       type = Terminal
       parent = child0
       order = 0
-      profile = Monokai Soda
+      profile = After Dark
       uuid = 78cd1fba-08c2-4edb-bcae-f4796affcb42
 [plugins]
