@@ -6,7 +6,7 @@ else
 endif
 
 " Python path
-let g:python3_host_prog='/home/sumit/miniconda3/envs/panda/bin/python3'
+let g:python3_host_prog='/home/sumit/miniconda3/envs/rh3/bin/python3'
 
 "Easy Motion Configuration"
 map <Leader> <Plug>(easymotion-prefix)
