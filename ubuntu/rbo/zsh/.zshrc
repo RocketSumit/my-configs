@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/sumit/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -70,7 +70,9 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-flow colored-man-pages zsh-syntax-highlighting zsh-autosuggestions pip python vi-mode colorize tmux)
+plugins=(git git-flow colored-man-pages zsh-syntax-highlighting zsh-autosuggestions pip python vi-mode colorize autojump tmux)
+
+# fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 ZSH_TMUX_AUTOSTART="true"
 
@@ -101,10 +103,11 @@ bindkey '^ ' autosuggest-accept
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias vim="nvim"
-alias zshconfig="nvim ~/.zshrc"
+alias sudo='sudo '
+alias vim="~/Applications/nvim.appimage"
+alias zshconfig="vim ~/.zshrc"
 alias sauce="source ~/.zshrc"
-alias t="tree" 
+alias t="tree -L" 
 alias d='dirs -v | head -10'
 alias 1='cd -'
 alias 2='cd -2'
@@ -131,7 +134,7 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-conda activate panda
+conda activate rh3
 # source /opt/ros/noetic/setup.zsh
 source ~/catkin_ws/devel/setup.zsh
 export ROS_MASTER_URI=http://130.149.238.195:11311
