@@ -103,7 +103,7 @@ bindkey '^ ' autosuggest-accept
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias sudo='sudo '
+#alias sudo='sudo '
 alias vim="~/Applications/nvim.appimage"
 alias zshconfig="vim ~/.zshrc"
 alias sauce="source ~/.zshrc"
