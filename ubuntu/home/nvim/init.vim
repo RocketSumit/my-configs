@@ -5,6 +5,9 @@ else
   source $HOME/.config/nvim/plugged.vim
 endif
 
+" Python path
+let g:python3_host_prog='/home/rocketsumit/miniconda3/envs/pysim/bin/python'
+
 "Easy Motion Configuration"
 map <Leader> <Plug>(easymotion-prefix)
 map f <Plug>(easymotion-bd-w)
