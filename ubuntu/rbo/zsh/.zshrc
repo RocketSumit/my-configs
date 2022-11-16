@@ -139,6 +139,9 @@ conda activate rh3
 source ~/catkin_ws/devel/setup.zsh
 export ROS_MASTER_URI=http://130.149.238.195:11311
 export ROS_IP=130.149.238.142
+export PATH=$PATH:/usr/local/texlive/2022/bin/x86_64-linux
+export MANPATH=/usr/local/texlive/2022/texmf-dist/doc/man:$MANPATH
+export INFOPATH=/usr/local/texlive/2022/texmf-dist/doc/info:$INFOPATH
 
 # Change cursor shape for different vi modes.
 
