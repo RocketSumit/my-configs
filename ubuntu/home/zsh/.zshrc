@@ -105,9 +105,9 @@ bindkey '^ ' autosuggest-accept
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Alias nvim to vim
-alias sudo='sudo '
+# alias sudo='sudo '
 alias vim="~/Applications/nvim.appimage"
-alias zshconfig="nvim ~/.zshrc"
+alias zshconfig="vim ~/.zshrc"
 alias sauce="source ~/.zshrc"
 alias t="tree -L" 
 alias d='dirs -v | head -10'
@@ -141,9 +141,13 @@ unset __conda_setup
 export GEM_HOME=$HOME/gems
 export PATH=$HOME/gems/bin:$PATH
 export PATH=$HOME/android-studio/bin:$PATH
+export PATH=/usr/local/texlive/2022/bin/x86_64-linux:$PATH
 conda activate pysim
 source ~/catkin_ws/devel/setup.zsh
 
+# Cuda
+export PATH="/usr/local/cuda-11.4/bin:$PATH"
+export LD_LIBRARY_PATH="/usr/local/cuda-11.4/lib64:$LD_LIBRARY_PATH"
 # Change cursor shape for different vi modes.
 
 function zle-keymap-select () {
