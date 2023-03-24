@@ -4,6 +4,11 @@ else
     let $VIMPLUGDIRECTORY = '~/.local/share/nvim/plugged'
 endif
 
+function! Cond(cond, ...)
+  let opts = get(a:000, 0, {})
+  return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
+endfunction
+
   " neovim settings for ordinary vim
 call plug#begin($VIMPLUGDIRECTORY)
 
@@ -41,7 +46,7 @@ Plug 'jiangmiao/auto-pairs'
 " Markdown preview
 Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': 'markdown' }
 " Syntax highlighting, matching rules and mappings for the original Markdown and extensions
-Plug 'plasticboy/vim-markdown'
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 " Tabular
 Plug 'godlygeek/tabular'
 " Snippets
@@ -49,5 +54,9 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 " distraction-free writing
 Plug 'junegunn/limelight.vim'
+" Vim surround
+Plug 'tpope/vim-surround'
+" Github copilot
+Plug 'github/copilot.vim', Cond(!exists('g:vscode'))
 
 call plug#end()
