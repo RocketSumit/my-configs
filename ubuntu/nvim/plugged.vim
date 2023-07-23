@@ -4,11 +4,6 @@ else
     let $VIMPLUGDIRECTORY = '~/.local/share/nvim/plugged'
 endif
 
-function! Cond(cond, ...)
-  let opts = get(a:000, 0, {})
-  return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
-endfunction
-
   " neovim settings for ordinary vim
 call plug#begin($VIMPLUGDIRECTORY)
 
@@ -22,7 +17,7 @@ Plug 'mbbill/undotree'
 Plug 'easymotion/vim-easymotion'
 " Plug 'https://github.com/asvetliakov/vim-easymotion.git'
 " A fuzzy file finder
-Plug 'kien/ctrlp.vim'
+" Plug 'kien/ctrlp.vim'
 " Comment/Uncomment tool
 Plug 'scrooloose/nerdcommenter'
 " Switch to the begining and the end of a block by pressing %
@@ -46,17 +41,16 @@ Plug 'jiangmiao/auto-pairs'
 " Markdown preview
 Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': 'markdown' }
 " Syntax highlighting, matching rules and mappings for the original Markdown and extensions
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+Plug 'plasticboy/vim-markdown'
 " Tabular
 Plug 'godlygeek/tabular'
 " Snippets
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 " distraction-free writing
 Plug 'junegunn/limelight.vim'
-" Vim surround
-Plug 'tpope/vim-surround'
-" Github copilot
-Plug 'github/copilot.vim', Cond(!exists('g:vscode'))
-
+" File finder
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.2' }
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()

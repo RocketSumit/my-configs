@@ -6,11 +6,12 @@ else
 endif
 
 " Python path
-let g:python3_host_prog='/home/sumit/miniconda3/envs/rh3/bin/python3'
+let g:python3_host_prog="$HOME/miniconda3/bin/python3"
+let g:python_highlight_space_errors=0
 
 "Easy Motion Configuration"
-map <Leader> <Plug>(easymotion-prefix)
-map f <Plug>(easymotion-bd-w)
+"map <Leader> <Plug>(easymotion-prefix)
+"map f <Plug>(easymotion-bd-w)
 let g:EasyMotion_use_upper=1
 let g:EasyMotion_keys='SADFJKLEWCMPGH'
 let g:Easymotion_smartcase=1
@@ -24,13 +25,6 @@ nnoremap ; :
 " Mapping L (end of line) to $ in normal mode
 nnoremap L $
 
-" change the leader key from "\" to "," (";" is also popular)
-let mapleader=","
-
-" Maping shif-colon to just colon in normal mode"
-nnoremap ; :
-" Mapping L (end of line) to $ in normal mode
-nnoremap L $
 " Mouse support
 set mouse=a
 
@@ -95,7 +89,7 @@ xnoremap Q :'<,'>:normal @q<CR>
 set gdefault
 
 " Using tab to move to right when inside brackets
-inoremap <expr> <Tab> search('\%#[]>)}]', 'n') ? '<Right>' : '<Tab>'
+" inoremap <expr> <Tab> search('\%#[]>)}]', 'n') ? '<Right>' : '<Tab>'
 
 "#############################
 " Plugin settings
@@ -135,26 +129,57 @@ let g:coc_global_extensions = [
       \'coc-yaml',
 \]
 
-" Tab completion for coc-snippets like VSCode
+" Use tab for trigger completion with characters ahead and navigate
+" NOTE: There's always complete item selected by default, you may want to enable
+" no select by `"suggest.noselect": true` in your configuration file
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-function! s:check_back_space() abort
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-let g:coc_snippet_next = '<tab>'
+" Use <c-space> to trigger completion
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor
+autocmd CursorHold * silent call CocActionAsync('highlight')
 " Coc ends here finally }}}
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"  " use <Tab> to trigger autocompletion
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+" let g:UltiSnipsExpandTrigger="<tab>"  " use <Tab> to trigger autocompletion
+" let g:UltiSnipsJumpForwardTrigger="<c-j>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 
 " Markdown preview
 let g:mkdp_auto_close=0  
+
+" Telescope file finder
+nnoremap <leader>ff <cmd>Telescope find_files<cr>

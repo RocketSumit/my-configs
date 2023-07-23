@@ -8,7 +8,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="steeef"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -17,7 +17,7 @@ ZSH_THEME="robbyrussell"
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
-CASE_SENSITIVE="false"
+# CASE_SENSITIVE="true"
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
@@ -41,7 +41,7 @@ CASE_SENSITIVE="false"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+# ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # You can also set it to another string to have that shown instead of the default red dots.
@@ -72,18 +72,18 @@ ENABLE_CORRECTION="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git git-flow colored-man-pages zsh-syntax-highlighting zsh-autosuggestions pip python vi-mode colorize autojump tmux)
 
-# fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
-
-ZSH_TMUX_AUTOSTART="true"
+ZSH_TMUX_AUTOSTART="false"
 
 source $ZSH/oh-my-zsh.sh
 
+# autocomplete key
 bindkey '^ ' autosuggest-accept
 # User configuration
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -103,10 +103,10 @@ bindkey '^ ' autosuggest-accept
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#alias sudo='sudo '
 alias vim="~/Applications/nvim.appimage"
 alias zshconfig="vim ~/.zshrc"
 alias sauce="source ~/.zshrc"
+alias close="tmux kill-server"
 alias t="tree -L" 
 alias d='dirs -v | head -10'
 alias 1='cd -'
@@ -121,30 +121,20 @@ alias 9='cd -9'
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/sumit/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$($HOME'/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/sumit/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/sumit/miniconda3/etc/profile.d/conda.sh"
+    if [ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "$HOME/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/sumit/miniconda3/bin:$PATH"
+        export PATH="$HOME/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-conda activate rh3
-# source /opt/ros/noetic/setup.zsh
-source ~/catkin_ws/devel/setup.zsh
-export ROS_MASTER_URI=http://130.149.238.195:11311
-export ROS_IP=130.149.238.142
-export PATH=$PATH:/usr/local/texlive/2022/bin/x86_64-linux
-export MANPATH=/usr/local/texlive/2022/texmf-dist/doc/man:$MANPATH
-export INFOPATH=/usr/local/texlive/2022/texmf-dist/doc/info:$INFOPATH
-
-# Change cursor shape for different vi modes.
-
+# curser change for vi mode
 function zle-keymap-select () {
 
 case $KEYMAP in
