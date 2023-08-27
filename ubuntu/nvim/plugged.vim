@@ -53,4 +53,7 @@ Plug 'junegunn/limelight.vim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.2' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+"Black python file formatter
+Plug 'python/black'
+
 call plug#end()

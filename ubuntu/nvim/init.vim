@@ -10,8 +10,8 @@ let g:python3_host_prog="$HOME/miniconda3/bin/python3"
 let g:python_highlight_space_errors=0
 
 "Easy Motion Configuration"
-"map <Leader> <Plug>(easymotion-prefix)
-"map f <Plug>(easymotion-bd-w)
+map <Leader> <Plug>(easymotion-prefix)
+map f <Plug>(easymotion-bd-w)
 let g:EasyMotion_use_upper=1
 let g:EasyMotion_keys='SADFJKLEWCMPGH'
 let g:Easymotion_smartcase=1
@@ -71,16 +71,16 @@ set ignorecase
 let g:lightline#bufferline#enable_devicons = 1
 
 " Copy to clipboard
-vnoremap y "+y
-nnoremap Y "+yg_
-nnoremap y "+y
-nnoremap yy "+yy
-
-" Paste from clipboard
-nnoremap P "+P
-nnoremap p "+p
-vnoremap P "+P
-vnoremap p "+p
+" vnoremap y "+y
+" nnoremap Y "+yg_
+" nnoremap y "+y
+" nnoremap yy "+yy
+"
+" " Paste from clipboard
+" nnoremap P "+P
+" nnoremap p "+p
+" vnoremap P "+P
+" vnoremap p "+p
 
 " To execute a macro over visual line selections
 xnoremap Q :'<,'>:normal @q<CR>
@@ -180,9 +180,9 @@ endfunction
 
 " Use <c-space> to trigger completion
 if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
+  inoremap <silent><expr> <M-space> coc#refresh()
 else
-  inoremap <silent><expr> <c-@> coc#refresh()
+  inoremap <silent><expr> <M-@> coc#refresh()
 endif
 
 " Use K to show documentation in preview window
@@ -211,3 +211,6 @@ let g:mkdp_auto_close=0
 
 " Telescope file finder
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
+
+" Black python formatter
+autocmd BufWritePre *.py execute ':Black'
