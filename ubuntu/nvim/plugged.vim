@@ -51,9 +51,12 @@ Plug 'honza/vim-snippets'
 Plug 'junegunn/limelight.vim'
 " File finder
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.2' }
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.3' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 "Black python file formatter
 Plug 'python/black'
+Plug 'tpope/vim-surround' " Surrounding ysw
+Plug 'ryanoasis/vim-devicons' " Dev icons
+Plug 'mg979/vim-visual-multi', {'branch': 'master'} " multi cursor
 
 call plug#end()
