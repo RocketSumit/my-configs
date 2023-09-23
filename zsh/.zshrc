@@ -11,6 +11,11 @@ fi
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  export PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.3/bin:$PATH"
+  export PATH="$HOME/.gem/ruby/3.0.3/bin:$PATH"
+fi
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -110,7 +115,13 @@ export LANG=en_US.UTF-8
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias vim="~/Applications/nvim.appimage"
+# OS specific aliases
+if [[ "$OSTYPE" == "linux"* ]]; then
+  alias vim="~/Applications/nvim.appimage";
+else
+  alias vim="nvim";
+fi
+
 alias zshconfig="vim ~/.zshrc"
 alias sauce="source ~/.zshrc"
 alias close="tmux kill-server"
@@ -128,14 +139,14 @@ alias 9='cd -9'
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/spatidar/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/Users/sumit/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/spatidar/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/spatidar/miniconda3/etc/profile.d/conda.sh"
+    if [ -f "/Users/sumit/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/sumit/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/spatidar/miniconda3/bin:$PATH"
+        export PATH="/Users/sumit/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
