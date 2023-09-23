@@ -77,7 +77,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-flow colored-man-pages zsh-syntax-highlighting zsh-autosuggestions pip python vi-mode colorize autojump tmux docker)
+plugins=(git git-flow colored-man-pages zsh-syntax-highlighting zsh-autosuggestions pip python vi-mode colorize autojump tmux docker web-search sudo history zsh-history-substring-search)
 
 ZSH_TMUX_AUTOSTART="true"
 
@@ -165,3 +165,9 @@ compress_video(){
   crf="${3:-28}"
   ffmpeg -i "$1" -vcodec libx264 -crf $crf "$2"
 }
+
+# Substring history search
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
