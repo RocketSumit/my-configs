@@ -15,9 +15,6 @@ Plug 'zhou13/vim-easyescape'
 Plug 'mbbill/undotree'
 " Easy motion
 Plug 'easymotion/vim-easymotion'
-" Plug 'https://github.com/asvetliakov/vim-easymotion.git'
-" A fuzzy file finder
-" Plug 'kien/ctrlp.vim'
 " Comment/Uncomment tool
 Plug 'scrooloose/nerdcommenter'
 " Switch to the begining and the end of a block by pressing %
@@ -28,8 +25,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
 " Airline themes
 Plug 'vim-airline/vim-airline-themes'
-" Nord
-Plug 'arcticicestudio/nord-vim'
 " Better syntax-highlighting for filetypes in vim
 Plug 'sheerun/vim-polyglot'
 " Intellisense engine
@@ -44,19 +39,24 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for':
 Plug 'plasticboy/vim-markdown'
 " Tabular
 Plug 'godlygeek/tabular'
-" Snippets
-" Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
 " distraction-free writing
 Plug 'junegunn/limelight.vim'
 " File finder
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.3' }
+" Highlighting
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 "Black python file formatter
 Plug 'python/black'
-Plug 'tpope/vim-surround' " Surrounding ysw
-Plug 'ryanoasis/vim-devicons' " Dev icons
-Plug 'mg979/vim-visual-multi', {'branch': 'master'} " multi cursor
-
+" Surrounding words with '([])'
+Plug 'tpope/vim-surround'
+" Dev icons
+Plug 'ryanoasis/vim-devicons' 
+" Code completion
+Plug 'Exafunction/codeium.vim'
+" Tag bar - classes, functions
+Plug 'preservim/tagbar'
+" Latex
+Plug 'lervag/vimtex'
 call plug#end()
