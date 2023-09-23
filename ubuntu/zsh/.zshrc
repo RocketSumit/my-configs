@@ -159,3 +159,9 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# convert video function
+compress_video(){
+  crf="${3:-28}"
+  ffmpeg -i "$1" -vcodec libx264 -crf $crf "$2"
+}
