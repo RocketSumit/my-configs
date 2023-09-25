@@ -237,4 +237,6 @@ let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
 nmap <C-t> :TagbarToggle<CR>
 
 " Codium config
+let g:codeium_disable_bindings = 1
 imap <C-x>   <Cmd>call codeium#Clear()<CR>
+imap <script><silent><nowait><expr> <M-space> codeium#Accept()
