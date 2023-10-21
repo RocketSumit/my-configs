@@ -9,8 +9,8 @@ call plug#begin($VIMPLUGDIRECTORY)
 
 " Gruvbox theme
 Plug 'morhetz/gruvbox'
-" To avoid jk mappings
-Plug 'zhou13/vim-easyescape'
+" To use jk mappings to go to normal mode
+Plug 'jdhao/better-escape.vim'
 " Maintain a histroy of undo in a tree structure
 Plug 'mbbill/undotree'
 " Easy motion

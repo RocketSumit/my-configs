@@ -9,6 +9,10 @@ endif
 let g:python3_host_prog="$HOME/miniconda3/bin/python3"
 let g:python_highlight_space_errors=0
 
+"Easy Escape
+let g:better_escape_shortcut = ['jk', 'kj']
+let g:better_escape_interval = 200
+
 "Easy Motion Configuration"
 map <Leader> <Plug>(easymotion-prefix)
 map f <Plug>(easymotion-bd-w)
@@ -62,7 +66,7 @@ set breakindentopt=shift:2
 set showbreak=↳
 
 " Set clipboard
-set clipboard=unnamed
+set clipboard=unnamedplus
 
 " ignores cases for search
 set ignorecase
@@ -222,6 +226,7 @@ let g:mkdp_auto_close=0
 
 " Telescope file finder
 nnoremap <leader>f <cmd>Telescope find_files<cr>
+nnoremap <leader>g <cmd>Telescope live_grep<cr>
 
 " Black python formatter
 autocmd BufWritePre *.py execute ':Black'
@@ -237,6 +242,25 @@ let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
 nmap <C-t> :TagbarToggle<CR>
 
 " Codium config
-let g:codeium_disable_bindings = 1
-imap <C-x>   <Cmd>call codeium#Clear()<CR>
-imap <script><silent><nowait><expr> <M-space> codeium#Accept()
+if exists('g:vscode')
+  " dont use codium for vim
+  let g:codeium_enabled = v:false
+else
+  let g:codeium_disable_bindings = 1
+  imap <C-x>   <Cmd>call codeium#Clear()<CR>
+  imap <script><silent><nowait><expr> <M-space> codeium#Accept()
+endif
+
+" Coc snippets
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+" Use <leader>x for convert visual selected code to snippet
+xmap <leader>x  <Plug>(coc-convert-snippet)
