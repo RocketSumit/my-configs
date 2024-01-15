@@ -6,6 +6,6 @@ mac:
 ubuntu:
 	sudo apt install curl autojump git zsh vim tmux flameshot
 
-symlink:
+setup:
 	bash setup.sh
 
