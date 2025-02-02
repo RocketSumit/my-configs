@@ -178,6 +178,15 @@ compress_video(){
   crf="${2:-28}"
   speed="${3:-1}"
   output_file="${input_file%.*}_comp.${input_file##*.}"
+  ffmpeg -i "$input_file" -vf "setpts=PTS/${speed},drawtext=text='${speed}x':x=10:y=10:fontsize=24:fontcolor=white" -vcodec libx264 -crf $crf "$output_file"
+}
+
+# convert video function - also removes audio
+compress_video_an(){
+  input_file="$1"
+  crf="${2:-28}"
+  speed="${3:-1}"
+  output_file="${input_file%.*}_comp.${input_file##*.}"
   ffmpeg -i "$input_file" -vf "setpts=PTS/${speed},drawtext=text='${speed}x':x=10:y=10:fontsize=24:fontcolor=white" -vcodec libx264 -crf $crf -an "$output_file"
 }
 
