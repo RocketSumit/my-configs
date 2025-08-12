@@ -84,7 +84,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git git-flow colored-man-pages zsh-syntax-highlighting zsh-autosuggestions pip python vi-mode colorize autojump tmux docker web-search sudo history zsh-history-substring-search)
 
-if [[ "$TERM_PROGRAM" != "vscode" ]]; then
+if [[ "$TERM_PROGRAM" != "vscode" ]] && [[ -n "$TERMINATOR_UUID" ]]; then
   ZSH_TMUX_AUTOSTART="true"
 fi
 
@@ -127,8 +127,9 @@ fi
 alias zshconfig="vim ~/.zshrc"
 alias sauce="source ~/.zshrc"
 alias close="tmux kill-server"
-alias ld='lazydocker'
+alias ld='$HOME/.local/bin/lazydocker'
 alias lg='lazygit'
+alias cursor='$HOME/Applications/Cursor-0.48.7-x86_64.AppImage'
 alias t="tree -L" 
 alias d='dirs -v | head -10'
 alias 1='cd -'
@@ -227,6 +228,11 @@ compress_pdf() {
         echo "Error: Compression failed."
         mv "$org_file" "$input_file"  # Restore original file in case of failure
     fi
+}
+
+fix_cuda(){
+  sudo rmmod nvidia_uvm
+  sudo modprobe nvidia_uvm
 }
 
 # Substring history search
