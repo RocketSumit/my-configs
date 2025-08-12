@@ -1,6 +1,7 @@
 vim.g.mapleader = ","
-vim.wo.relativenumber = true
+vim.opt.relativenumber = true
 vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/"
+vim.opt.clipboard = "unnamedplus"
 
 -- bootstrap lazy and all plugins
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
@@ -13,7 +14,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local lazy_config = require "configs.lazy"
-
 -- load plugins
 require("lazy").setup({
   {
