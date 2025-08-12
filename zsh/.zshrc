@@ -230,6 +230,87 @@ compress_pdf() {
     fi
 }
 
+mp4_to_gif() {
+    # Check if an argument is given
+    if [ -z "$1" ]; then
+        echo "Usage: mp4_to_gif input.mp4"
+        return 1
+    fi
+
+    input="$1"
+    base="${input%.*}"
+    gif="${base}.gif"
+    palette="palette_${base}.png"
+
+    # Generate palette
+    ffmpeg -y -i "$input" -vf "fps=10,scale=320:-1:flags=lanczos,palettegen" "$palette"
+
+    # Use palette to generate GIF
+    ffmpeg -y -i "$input" -i "$palette" -filter_complex "fps=10,scale=320:-1:flags=lanczos[x];[x][1:v]paletteuse" "$gif"
+
+    # Remove palette file after conversion
+    rm -f "$palette"
+
+    echo "GIF saved as $gif"
+}
+
+tmux_split_n() {
+    local n=$1
+    if [[ -z "$n" ]] || (( n < 1 )) || (( n > 10 )); then
+        echo "Usage: tmux_split_n <number_of_panes: 1-10>"
+        return 1
+    fi
+
+    # Get grid size: rows x cols
+    local rows cols
+    cols=$(awk -v n="$n" 'BEGIN{print int(sqrt(n)+0.9999)}')
+    rows=$(( (n + cols - 1) / cols ))
+
+    # Start in a clean window if desired
+    # tmux new-window  # Optional: Uncomment to always start in a new window
+
+    # Function works inside tmux only
+    if [[ -z "$TMUX" ]]; then
+        echo "Please run this inside a tmux session."
+        return 1
+    fi
+
+    # Close other panes, keep only one
+    tmux select-pane -t 0
+    tmux kill-pane -a
+
+    # Split to get the first row
+    for ((i=1; i<cols; i++)); do
+        tmux split-window -h
+        tmux select-pane -R
+    done
+
+    tmux select-layout tiled
+
+    # For additional rows
+    local total_panes=$cols
+    for ((r=1; r<rows; r++)); do
+        # Select first pane of previous row
+        tmux select-pane -t $(( (r-1)*cols ))
+        tmux split-window -v
+        # For all but the first column in this row, split further
+        for ((c=1; c<cols; c++)); do
+            tmux select-pane -t $(( r*cols + c - 1 ))
+            tmux split-window -h
+        done
+        tmux select-layout tiled
+        total_panes=$((total_panes+cols))
+    done
+
+    # If we created more panes than requested, kill the extras
+    while (( total_panes > n )); do
+        tmux kill-pane -t $((total_panes-1))
+        total_panes=$((total_panes-1))
+    done
+
+    tmux select-layout tiled
+}
+
 fix_cuda(){
   sudo rmmod nvidia_uvm
   sudo modprobe nvidia_uvm
@@ -243,3 +324,4 @@ bindkey -M vicmd 'j' history-substring-search-down
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libstdc++.so.6
+# Artifactory credentials
