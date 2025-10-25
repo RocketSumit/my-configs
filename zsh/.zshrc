@@ -1,3 +1,12 @@
+# Only run this file when the current shell is zsh. If it's accidentally sourced
+# by bash (or another shell), stop processing here to avoid syntax errors and
+# zsh-only commands being run.
+if [ -z "${ZSH_VERSION-}" ]; then
+    # If this file is sourced, `return` will stop processing. If it's executed
+    # as a script, `return` will fail, so fall back to exiting the script.
+    return 2>/dev/null || exit 0
+fi
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -88,7 +97,12 @@ if [[ "$TERM_PROGRAM" != "vscode" ]] && [[ -n "$TERMINATOR_UUID" ]]; then
   ZSH_TMUX_AUTOSTART="true"
 fi
 
-source $ZSH/oh-my-zsh.sh
+if [ -f "$ZSH/oh-my-zsh.sh" ]; then
+    source "$ZSH/oh-my-zsh.sh"
+else
+    # oh-my-zsh not installed or ZSH path incorrect; skip sourcing to avoid errors
+    true
+fi
 
 # autocomplete key
 bindkey '^[ ' autosuggest-accept
