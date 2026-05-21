@@ -143,7 +143,6 @@ alias sauce="source ~/.zshrc"
 alias close="tmux kill-server"
 alias ld='$HOME/.local/bin/lazydocker'
 alias lg='lazygit'
-alias cursor='$HOME/Applications/Cursor-0.48.7-x86_64.AppImage'
 alias t="tree -L" 
 alias d='dirs -v | head -10'
 alias 1='cd -'
@@ -187,22 +186,95 @@ zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
-# convert video function
-compress_video(){
-  input_file="$1"
-  crf="${2:-28}"
-  speed="${3:-1}"
-  output_file="${input_file%.*}_comp.${input_file##*.}"
-  ffmpeg -i "$input_file" -vf "setpts=PTS/${speed},drawtext=text='${speed}x':x=10:y=10:fontsize=24:fontcolor=white" -vcodec libx264 -crf $crf "$output_file"
+compress_video() {
+  local delete_flag=0
+  local args=()
+  
+  # Argument filtering
+  for arg in "$@"; do
+    if [ "$arg" = "-d" ]; then
+      delete_flag=1
+    else
+      args+=("$arg")
+    fi
+  done
+
+  # Reset positional parameters ($1, $2, $3) to our filtered arguments
+  set -- "${args[@]}"
+
+  local input_file="$1"
+  
+  # Ensure an input file was passed
+  if [ -z "$input_file" ]; then
+    echo "Usage: compress_video [-d] <input_file> [crf] [speed]"
+    return 1
+  fi
+
+  # Set parameters (defaulting to crf=28 and speed=1)
+  local crf="${2:-28}"
+  local speed="${3:-1}"
+  local output_file="${input_file%.*}_comp.${input_file##*.}"
+
+  # Run ffmpeg. Added -af "atempo" to match audio speed with video speed
+  if ffmpeg -i "$input_file" \
+            -vf "setpts=PTS/$speed,drawtext=text='${}x':x=10:y=10:fontsize=24:fontcolor=white" \
+            -af "atempo=$speed" \
+            -vcodec libx264 -crf "$crf" "$output_file"; then
+            
+    # ONLY delete original if ffmpeg succeeds
+    if [ "$delete_flag" -eq 1 ]; then
+      rm -- "$input_file"
+      echo "Original file deleted: $input_file"
+    fi
+  else
+    echo "Compression failed. Original file kept safely."
+    return 1
+  fi
 }
 
-# convert video function - also removes audio
-compress_video_an(){
-  input_file="$1"
-  crf="${2:-28}"
-  speed="${3:-1}"
-  output_file="${input_file%.*}_comp.${input_file##*.}"
-  ffmpeg -i "$input_file" -vf "setpts=PTS/${speed},drawtext=text='${speed}x':x=10:y=10:fontsize=24:fontcolor=white" -vcodec libx264 -crf $crf -an "$output_file"
+compress_video_an() {
+  local delete_flag=0
+  local args=()
+  
+  # Argument filtering
+  for arg in "$@"; do
+    if [ "$arg" = "-d" ]; then
+      delete_flag=1
+    else
+      args+=("$arg")
+    fi
+  done
+
+  # Reset positional parameters ($1, $2, $3) to our filtered arguments
+  set -- "${args[@]}"
+
+  local input_file="$1"
+  
+  # Ensure an input file was passed
+  if [ -z "$input_file" ]; then
+    echo "Usage: compress_video_an [-d] <input_file> [crf] [speed]"
+    return 1
+  fi
+
+  # Set parameters
+  local crf="${2:-28}"
+  local speed="${3:-1}"
+  local output_file="${input_file%.*}_comp.${input_file##*.}"
+
+  # Run ffmpeg with -an (no audio)
+  if ffmpeg -i "$input_file" \
+            -vf "setpts=PTS/$speed,drawtext=text='${}x':x=10:y=10:fontsize=24:fontcolor=white" \
+            -vcodec libx264 -crf "$crf" -an "$output_file"; then
+            
+    # ONLY delete original if ffmpeg succeeds
+    if [ "$delete_flag" -eq 1 ]; then
+      rm -- "$input_file"
+      echo "Original file deleted: $input_file"
+    fi
+  else
+    echo "Compression failed. Original file kept safely."
+    return 1
+  fi
 }
 
 
@@ -330,6 +402,15 @@ fix_cuda(){
   sudo modprobe nvidia_uvm
 }
 
+# Define where history is stored and its size
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+
+# Core settings for sharing history
+setopt noincappendhistory
+setopt nosharehistory
+
 # Substring history search
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
@@ -338,4 +419,12 @@ bindkey -M vicmd 'j' history-substring-search-down
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libstdc++.so.6
-# Artifactory credentials
+
+# Zoxide pulugin
+eval "$(zoxide init zsh)"
+
+# Add this to the end of ~/.zshrc
+if [ -f ~/.zshrc.local ]; then
+    source ~/.zshrc.local
+fi
+fpath+=${ZDOTDIR:-~}/.zsh_functions
