@@ -135,7 +135,7 @@ export LANG=en_US.UTF-8
 if [[ "$OSTYPE" == "linux"* ]]; then
   alias vim="~/Applications/nvim.appimage";
 else
-  alias vim="nvim";
+  alias vim="~/Applications/nvim-macos-arm64/bin/nvim";
 fi
 
 alias zshconfig="vim ~/.zshrc"
@@ -157,14 +157,14 @@ alias 9='cd -9'
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('$HOME/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/opt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "$HOME/miniconda3/etc/profile.d/conda.sh"
+    if [ -f "/opt/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/opt/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="$HOME/miniconda3/bin:$PATH"
+        export PATH="/opt/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
@@ -286,34 +286,85 @@ combine_videos(){
 }
 
 compress_pdf() {
-    if [ -z "$1" ]; then
-        echo "Usage: compress_pdf <input_file>"
+    local dpi=150
+    local files=()
+
+    # Check Ghostscript
+    if ! command -v gs >/dev/null 2>&1; then
+        echo "Error: Ghostscript (gs) is not installed."
+
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            echo "Install with: brew install ghostscript"
+        else
+            echo "Install with: sudo apt install ghostscript"
+        fi
         return 1
     fi
 
-    input_file="$1"
-    if [ ! -f "$input_file" ]; then
-        echo "Error: File '$input_file' does not exist."
+    # Parse arguments
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --dpi)
+                shift
+                if [[ "$1" =~ ^[0-9]+$ ]]; then
+                    dpi="$1"
+                else
+                    echo "Error: --dpi requires a numeric value"
+                    return 1
+                fi
+                ;;
+            *)
+                files+=("$1")
+                ;;
+        esac
+        shift
+    done
+
+    # Validate input
+    if [[ ${#files[@]} -eq 0 ]]; then
+        echo "Usage:"
+        echo "  compress_pdf [--dpi 150] file1.pdf file2.pdf ..."
         return 1
     fi
 
-    # Rename the input file with "org" suffix
-    org_file="${input_file%.*}-org.pdf"
-    mv "$input_file" "$org_file"
+    # Process files
+    for input in "${files[@]}"; do
 
-    # Compress the file to printer quality
-    gs -sDEVICE=pdfwrite \
-       -dCompatibilityLevel=1.4 \
-       -dPDFSETTINGS=/printer \
-       -dNOPAUSE -dQUIET -dBATCH \
-       -sOutputFile="$input_file" "$org_file"
+        if [[ ! -f "$input" ]]; then
+            echo "Skipping '$input' (file not found)"
+            continue
+        fi
 
-    if [ $? -eq 0 ]; then
-        echo "Compression successful. Original file saved as '$org_file'."
-    else
-        echo "Error: Compression failed."
-        mv "$org_file" "$input_file"  # Restore original file in case of failure
-    fi
+        if [[ "${input##*.}" != "pdf" ]]; then
+            echo "Skipping '$input' (not a PDF)"
+            continue
+        fi
+
+        local base="${input%.pdf}"
+        local output="${base}_comp.pdf"
+
+        echo "Compressing: $input -> $output (DPI: $dpi)"
+
+        gs -sDEVICE=pdfwrite \
+           -dCompatibilityLevel=1.4 \
+           -dNOPAUSE \
+           -dQUIET \
+           -dBATCH \
+           -dDownsampleColorImages=true \
+           -dDownsampleGrayImages=true \
+           -dDownsampleMonoImages=true \
+           -dColorImageResolution="$dpi" \
+           -dGrayImageResolution="$dpi" \
+           -dMonoImageResolution="$dpi" \
+           -sOutputFile="$output" \
+           "$input"
+
+        if [[ $? -eq 0 ]]; then
+            echo "Done: $output"
+        else
+            echo "Failed: $input"
+        fi
+    done
 }
 
 mp4_to_gif() {
@@ -420,11 +471,9 @@ bindkey -M vicmd 'j' history-substring-search-down
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libstdc++.so.6
 
-# Zoxide pulugin
-eval "$(zoxide init zsh)"
-
 # Add this to the end of ~/.zshrc
 if [ -f ~/.zshrc.local ]; then
     source ~/.zshrc.local
 fi
 fpath+=${ZDOTDIR:-~}/.zsh_functions
+
