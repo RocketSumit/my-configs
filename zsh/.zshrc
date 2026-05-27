@@ -155,21 +155,6 @@ alias 7='cd -7'
 alias 8='cd -8'
 alias 9='cd -9'
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/opt/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/opt/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/opt/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
 # curser change for vi mode
 function zle-keymap-select () {
     case $KEYMAP in
@@ -477,3 +462,6 @@ if [ -f ~/.zshrc.local ]; then
 fi
 fpath+=${ZDOTDIR:-~}/.zsh_functions
 
+
+. "$HOME/.local/bin/env"
+export PATH="$HOME/.local/bin:$PATH"
