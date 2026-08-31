@@ -53,42 +53,29 @@ return {
   -- 	},
   -- },
 
-  -- Easy motion
+  -- Flash: fast jump motions (replaces vim-easymotion), lazy-loaded on keypress
   {
-    "easymotion/vim-easymotion",
-    tag = "v3.0.1",
-    lazy = false,
-    config = function()
-      -- EasyMotion settings
-      vim.g.EasyMotion_do_mapping = 0
-      vim.g.EasyMotion_smartcase = 1
-      vim.g.EasyMotion_use_upper = 1
-      vim.g.EasyMotion_keys = "SADFJKLEWCMPGH"
-      vim.g.EasyMotion_use_smartsign_us = 1
-
-      -- Key mappings for EasyMotion
-      -- Move to character
-      vim.api.nvim_set_keymap("n", "f", "<Plug>(easymotion-bd-w)", {})
-
-      -- `s{char}{char}{label}` for easier two-character motion
-      vim.api.nvim_set_keymap("n", "s", "<Plug>(easymotion-overwin-f2)", {})
-
-      -- Line motions with 'j' and 'k'
-      vim.api.nvim_set_keymap("n", "<Leader>j", "<Plug>(easymotion-j)", {})
-      vim.api.nvim_set_keymap("n", "<Leader>k", "<Plug>(easymotion-k)", {})
-    end,
-  },
-
-  -- Codium - Auto Complete
-  {
-    "Exafunction/codeium.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "hrsh7th/nvim-cmp",
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = {
+      -- disable native f/F/t/T hijacking so it doesn't override our
+      -- own `f`/`s` keymaps below with unlabeled single-char jumps
+      modes = { char = { enabled = false } },
     },
-    config = function()
-      require "configs/codeium"
-    end,
+    keys = {
+      {
+        "f",
+        mode = { "n", "x", "o" },
+        function() require("flash").jump { search = { multi_window = false } } end,
+        desc = "Flash jump (current window)",
+      },
+      {
+        "s",
+        mode = { "n", "x", "o" },
+        function() require("flash").jump() end,
+        desc = "Flash jump (all windows)",
+      },
+    },
   },
 
   -- Lazy Git

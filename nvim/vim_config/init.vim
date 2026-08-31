@@ -241,16 +241,6 @@ let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
 " Tab bar settings
 nmap <C-t> :TagbarToggle<CR>
 
-" Codium config
-	if exists('g:vscode')
-	  " dont use codium for vim
-	  let g:codeium_enabled = v:false
-	else
-	  let g:codeium_disable_bindings = 1
-	  imap <C-x>   <Cmd>call codeium#Clear()<CR>
-	  imap <script><silent><nowait><expr> <M-space> codeium#Accept()
-	endif
-
 	" Coc snippets
 	" Use <C-l> for trigger snippet expand.
 	imap <C-l> <Plug>(coc-snippets-expand)
