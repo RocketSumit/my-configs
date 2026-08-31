@@ -21,15 +21,24 @@ return {
     opts = {},
   },
 
-  -- Mason for LSP and Tools Management
+  -- NvChad/NvChad already declares and configures "mason-org/mason.nvim"
+  -- (nvchad.configs.mason, with theme-matching icons); no need to
+  -- redeclare it here.
+  --
+  -- mason.nvim itself has no `ensure_installed` option, so the list below
+  -- was previously silently ignored and nothing but a stray pre-existing
+  -- `pyright` install ever got installed. This plugin actually installs
+  -- missing tools on startup.
   {
-    "williamboman/mason.nvim",
-    config = function()
-      require("mason").setup()
-    end,
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    dependencies = { "mason-org/mason.nvim" },
+    -- must load before VimEnter fires: it registers its own VimEnter
+    -- autocmd to trigger installs, so lazy-loading on an event that
+    -- fires after VimEnter (e.g. VeryLazy) means that autocmd never runs
+    lazy = false,
     opts = {
       ensure_installed = {
-        "pyright", -- Python
+        "basedpyright", -- Python
         "clangd", -- C++
         "yaml-language-server", -- YAML
         "json-lsp", -- JSON

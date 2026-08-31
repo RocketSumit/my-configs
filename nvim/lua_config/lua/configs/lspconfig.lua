@@ -10,7 +10,7 @@ local servers = {
   "jsonls",
   "yamlls",
   "clangd",
-  "pyright",
+  "basedpyright",
 }
 
 -- Default configs
@@ -23,3 +23,9 @@ for _, server in ipairs(servers) do
 
   vim.lsp.enable(server)
 end
+
+-- clangd is very chatty on stderr (build/index progress); Neovim logs all
+-- LSP stderr at [ERROR], which was the main driver of a multi-GB lsp.log.
+vim.lsp.config("clangd", {
+  cmd = { "clangd", "--log=error" },
+})
