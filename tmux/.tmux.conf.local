@@ -61,6 +61,10 @@ bind-key -n M-9 select-window -t 9
 
 # -- display -------------------------------------------------------------------
 
+# override the base config's screen-256color: tmux-256color has more
+# complete terminfo capabilities and fixes stale-content redraw glitches
+set -g default-terminal "tmux-256color"
+
 # RGB 24-bit colour support, possible values are:
 #   - true
 #   - false
