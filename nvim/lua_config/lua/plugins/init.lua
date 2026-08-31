@@ -125,6 +125,14 @@ return {
     end,
   },
 
+  -- Load nvim-tree at startup so it can hijack directory buffers
+  -- (NvChad's default spec only lazy-loads on NvimTreeToggle/Focus,
+  -- so its own auto-open-on-directory autocmd never gets registered)
+  {
+    "nvim-tree/nvim-tree.lua",
+    lazy = false,
+  },
+
   -- Smooth scroll
   {
     "karb94/neoscroll.nvim",
