@@ -93,7 +93,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git git-flow colored-man-pages zsh-syntax-highlighting zsh-autosuggestions pip python vi-mode colorize autojump tmux docker web-search sudo history zsh-history-substring-search)
 
-if [[ "$TERM_PROGRAM" != "vscode" ]] && [[ -n "$TERMINATOR_UUID" ]]; then
+if [[ "$TERM_PROGRAM" != "vscode" ]]; then
   ZSH_TMUX_AUTOSTART="true"
 fi
 
@@ -462,6 +462,4 @@ if [ -f ~/.zshrc.local ]; then
 fi
 fpath+=${ZDOTDIR:-~}/.zsh_functions
 
-
-. "$HOME/.local/bin/env"
 export PATH="$HOME/.local/bin:$PATH"
