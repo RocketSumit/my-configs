@@ -129,6 +129,27 @@ return {
     lazy = false,
   },
 
+  -- Highlight the active window border with a color
+  {
+    "nvim-zh/colorful-winsep.nvim",
+    event = { "WinNew" },
+    opts = {
+      highlight = nil,
+      border = "single",
+      excluded_ft = { "packer", "TelescopePrompt", "mason", "CompeDocumentation", "noice" },
+    },
+  },
+
+  -- vim-tmux-navigator: seamless Alt+hjkl navigation between nvim splits and tmux panes
+  -- keymaps are set in mappings.lua to run after nvchad.mappings
+  {
+    "christoomey/vim-tmux-navigator",
+    lazy = false,
+    init = function()
+      vim.g.tmux_navigator_no_mappings = 1
+    end,
+  },
+
   -- Smooth scroll
   {
     "karb94/neoscroll.nvim",
