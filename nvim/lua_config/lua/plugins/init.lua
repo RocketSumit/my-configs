@@ -51,16 +51,6 @@ return {
       },
     },
   },
-  --
-  -- {
-  -- 	"nvim-treesitter/nvim-treesitter",
-  -- 	opts = {
-  -- 		ensure_installed = {
-  -- 			"vim", "lua", "vimdoc",
-  --      "html", "css"
-  -- 		},
-  -- 	},
-  -- },
 
   -- Flash: fast jump motions (replaces vim-easymotion), lazy-loaded on keypress
   {
@@ -75,13 +65,17 @@ return {
       {
         "f",
         mode = { "n", "x", "o" },
-        function() require("flash").jump { search = { multi_window = false } } end,
+        function()
+          require("flash").jump { search = { multi_window = false } }
+        end,
         desc = "Flash jump (current window)",
       },
       {
         "s",
         mode = { "n", "x", "o" },
-        function() require("flash").jump() end,
+        function()
+          require("flash").jump()
+        end,
         desc = "Flash jump (all windows)",
       },
     },
@@ -183,4 +177,10 @@ return {
       },
     },
   },
+ {
+  "nvim-treesitter/nvim-treesitter",
+  branch = "main",
+  lazy = false,
+  build = ":TSUpdate",
+},
 }
