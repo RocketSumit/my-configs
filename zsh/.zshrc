@@ -1,3 +1,13 @@
+# Autostart / attach tmux before p10k instant prompt
+if [[ -z "$TMUX" && -t 0 ]]; then
+  UNATTACHED=$(tmux list-sessions -F "#{session_name}:#{session_attached}" 2>/dev/null | awk -F: '$2 == 0 {print $1; exit}')
+
+  if [[ -n "$UNATTACHED" ]]; then
+    exec tmux attach-session -t "$UNATTACHED"
+  else
+    exec tmux new-session
+  fi
+fi
 # Only run this file when the current shell is zsh. If it's accidentally sourced
 # by bash (or another shell), stop processing here to avoid syntax errors and
 # zsh-only commands being run.
@@ -92,10 +102,6 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git git-flow colored-man-pages zsh-syntax-highlighting zsh-autosuggestions pip python vi-mode colorize autojump tmux docker web-search sudo history zsh-history-substring-search)
-
-if [[ "$TERM_PROGRAM" != "vscode" ]]; then
-  ZSH_TMUX_AUTOSTART="true"
-fi
 
 if [ -f "$ZSH/oh-my-zsh.sh" ]; then
     source "$ZSH/oh-my-zsh.sh"
