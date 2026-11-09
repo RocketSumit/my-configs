@@ -3,18 +3,19 @@ local options = {
     lua = { "stylua" },
     css = { "prettier" },
     html = { "prettier" },
-    python = { "black", "ruff" },
-    javascript = {"prettier"},
-    markdown = {"prettier"},
+    python = { "ruff_fix", "ruff_format" },
+    javascript = { "prettier" },
+    markdown = { "prettier" },
+    c = { "clang-format" },
     cpp = { "clang-format" },
     yaml = { "prettier" },
   },
 
   format_on_save = {
     -- These options will be passed to conform.format()
-     timeout_ms = 2500,
-     lsp_fallback = true,
-   },
+    timeout_ms = 2500,
+    lsp_format = "fallback",
+  },
 }
 
 return options

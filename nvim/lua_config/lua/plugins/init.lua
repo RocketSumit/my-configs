@@ -15,13 +15,9 @@ return {
   -- Markdown render
   {
     "MeanderingProgrammer/render-markdown.nvim",
-    after = { "nvim-treesitter" },
-    requires = { "nvim-mini/mini.nvim", opt = true }, -- if you use the mini.nvim suite
-    -- requires = { 'nvim-mini/mini.icons', opt = true },        -- if you use standalone mini plugins
-    -- requires = { 'nvim-tree/nvim-web-devicons', opt = true }, -- if you prefer nvim-web-devicons
-    config = function()
-      require("render-markdown").setup {}
-    end,
+    ft = { "markdown" },
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+    opts = {},
   },
 
   -- NvChad/NvChad already declares and configures "mason-org/mason.nvim"
@@ -41,15 +37,18 @@ return {
     lazy = false,
     opts = {
       ensure_installed = {
-        "basedpyright", -- Python
-        "clangd", -- C++
-        "yaml-language-server", -- YAML
-        "json-lsp", -- JSON
-        "marksman", -- Markdown
-        "lua-language-server", -- Lua
+        "basedpyright", -- Python LSP
+        "ruff", -- Python linter / formatter
+        "black", -- Python formatter (fallback)
+        "clangd", -- C/C++ LSP
+        "clang-format", -- C/C++ formatter
+        "yaml-language-server", -- YAML LSP
+        "json-lsp", -- JSON LSP
+        "marksman", -- Markdown LSP
+        "lua-language-server", -- Lua LSP
         "stylua", -- Lua Formatter
-        "html-lsp", -- HTML
-        "css-lsp", -- CSS
+        "html-lsp", -- HTML LSP
+        "css-lsp", -- CSS LSP
         "prettier", -- Prettier Formatter
       },
     },
@@ -182,8 +181,23 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter",
-    branch = "main",
-    lazy = false,
-    build = ":TSUpdate",
+    branch = "master",
+    opts = {
+      ensure_installed = {
+        "vim",
+        "lua",
+        "vimdoc",
+        "html",
+        "css",
+        "javascript",
+        "c",
+        "cpp",
+        "python",
+        "json",
+        "yaml",
+        "markdown",
+        "markdown_inline",
+      },
+    },
   },
 }
