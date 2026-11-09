@@ -76,16 +76,24 @@ below covers this config's most-used bindings.
 | `<leader>b` | n | New empty buffer |
 | `<leader>x` | n | Close current buffer |
 
-### Jump motion — [flash.nvim](https://github.com/folke/flash.nvim)
+### Jump motion & Text objects
 
-Replaces the old `vim-easymotion` setup. Native `F`/`t`/`T`/`;`/`,` are left
-as plain vim (flash's own auto-hijack of those is disabled in
-`lua/plugins/init.lua`); only `f`/`s` are repurposed:
+- **[flash.nvim](https://github.com/folke/flash.nvim)**: Replaces the old `vim-easymotion` setup. Native `F`/`t`/`T`/`;`/`,` are left as plain vim; only `f`/`s` are repurposed:
 
 | Key | Mode | Action |
 |---|---|---|
 | `f` | n, x, o | Flash jump — current window, type chars, press the label to jump |
 | `s` | n, x, o | Flash jump — across all visible windows |
+
+- **[nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects)**: Syntax-aware text selections:
+
+| Key | Mode | Action |
+|---|---|---|
+| `af` / `if` | o, x | Select outer / inner function |
+| `ac` / `ic` | o, x | Select outer / inner class |
+| `aa` / `ia` | o, x | Select outer / inner parameter/argument |
+| `]m` / `[m` | n | Jump to next / previous function start |
+| `]M` / `[M` | n | Jump to next / previous function end |
 
 ### File explorer — nvim-tree
 
@@ -97,7 +105,7 @@ as plain vim (flash's own auto-hijack of those is disabled in
 Opening nvim directly on a directory (`nvim .`) auto-opens the tree
 (`hijack_directories`, forced eager-load in `lua/plugins/init.lua`).
 
-### Fuzzy finder — Telescope
+### Fuzzy finder — Telescope (with native FZF C sorter)
 
 | Key | Action |
 |---|---|

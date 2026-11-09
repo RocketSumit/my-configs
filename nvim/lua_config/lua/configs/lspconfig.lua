@@ -35,6 +35,29 @@ vim.lsp.config("basedpyright", {
   },
 })
 
+-- JSON schema validation & autocompletion via SchemaStore
+vim.lsp.config("jsonls", {
+  settings = {
+    json = {
+      schemas = require("schemastore").json.schemas(),
+      validate = { enable = true },
+    },
+  },
+})
+
+-- YAML schema validation & autocompletion via SchemaStore
+vim.lsp.config("yamlls", {
+  settings = {
+    yaml = {
+      schemaStore = {
+        enable = false,
+        url = "",
+      },
+      schemas = require("schemastore").yaml.schemas(),
+    },
+  },
+})
+
 -- Enable configured servers
 for _, server in ipairs(servers) do
   vim.lsp.enable(server)

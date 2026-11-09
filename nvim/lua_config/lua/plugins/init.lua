@@ -91,10 +91,33 @@ return {
     lazy = false,
   },
 
+  -- Telescope with native FZF sorter for fast fuzzy finding
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+      },
+    },
+    config = function(_, opts)
+      local telescope = require "telescope"
+      telescope.setup(opts)
+      pcall(telescope.load_extension, "fzf")
+    end,
+  },
+
+  -- JSON & YAML schemas from SchemaStore.org
+  {
+    "b0o/SchemaStore.nvim",
+    lazy = true,
+    version = false,
+  },
+
   -- Highlight the active window border with a color
   {
     "nvim-zh/colorful-winsep.nvim",
-    event = { "WinNew" },
+    event = { "WinNew", "WinLeave" },
     opts = {
       highlight = nil,
       border = "single",
@@ -165,5 +188,57 @@ return {
         "markdown_inline",
       },
     },
+  },
+
+  -- Treesitter text objects (af/if for functions, ac/ic for classes, aa/ia for parameters)
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    event = { "BufReadPost", "BufNewFile" },
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    config = function()
+      require("nvim-treesitter.configs").setup {
+        textobjects = {
+          select = {
+            enable = true,
+            lookahead = true,
+            keymaps = {
+              ["af"] = "@function.outer",
+              ["if"] = "@function.inner",
+              ["ac"] = "@class.outer",
+              ["ic"] = "@class.inner",
+              ["aa"] = "@parameter.outer",
+              ["ia"] = "@parameter.inner",
+            },
+          },
+          move = {
+            enable = true,
+            set_jumps = true,
+            goto_next_start = {
+              ["]m"] = "@function.outer",
+              ["]]"] = "@class.outer",
+            },
+            goto_next_end = {
+              ["]M"] = "@function.outer",
+              ["]["] = "@class.outer",
+            },
+            goto_previous_start = {
+              ["[m"] = "@function.outer",
+              ["[["] = "@class.outer",
+            },
+            goto_previous_end = {
+              ["[M"] = "@function.outer",
+              ["[]"] = "@class.outer",
+            },
+          },
+        },
+      }
+    end,
+  },
+
+  -- Auto-close & auto-rename HTML / XML tags using Treesitter
+  {
+    "windwp/nvim-ts-autotag",
+    event = { "BufReadPost", "BufNewFile" },
+    opts = {},
   },
 }
