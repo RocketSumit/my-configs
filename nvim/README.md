@@ -32,8 +32,9 @@ this repo layers custom plugins, LSP servers, formatters and keymaps on top.
 
 3. **LSP servers / formatters**
    Mason installs these automatically on first launch (`lua/plugins/init.lua`):
-   `pyright`, `clangd`, `yaml-language-server`, `json-lsp`, `marksman`,
-   `lua-language-server`, `stylua`, `html-lsp`, `css-lsp`, `prettier`.
+   `basedpyright`, `ruff`, `black`, `clangd`, `clang-format`,
+   `yaml-language-server`, `json-lsp`, `marksman`, `lua-language-server`,
+   `stylua`, `html-lsp`, `css-lsp`, `prettier`.
    Run `:Mason` to check status or add more.
 
 4. **Keeping it up to date**
@@ -46,7 +47,7 @@ this repo layers custom plugins, LSP servers, formatters and keymaps on top.
 
 ## Keybindings cheatsheet
 
-Leader key is `,` (comma), set in `lua/options.lua`. `<leader>ch` opens
+Leader key is `,` (comma), set in `init.lua`. `<leader>ch` opens
 NvChad's own searchable cheatsheet (`:NvCheatsheet`) inside nvim; the list
 below covers this config's most-used bindings.
 
@@ -69,7 +70,8 @@ below covers this config's most-used bindings.
 
 | Key | Mode | Action |
 |---|---|---|
-| `<C-h/j/k/l>` | n | Move focus between splits |
+| `<A-h/j/k/l>` | n, t | Navigate between splits and tmux panes (`vim-tmux-navigator`) |
+| `<C-h/j/k/l>` | n | Move focus between splits (NvChad native) |
 | `<Tab>` / `<S-Tab>` | n | Next / previous buffer |
 | `<leader>b` | n | New empty buffer |
 | `<leader>x` | n | Close current buffer |
@@ -143,10 +145,11 @@ Neovim 0.11+ also ships built-in LSP defaults on top of these: `K` (hover),
 |---|---|
 | `<leader>h` | New horizontal terminal |
 | `<leader>v` | New vertical terminal |
-| `<A-h>` | Toggle horizontal terminal |
 | `<A-v>` | Toggle vertical terminal |
 | `<A-i>` | Toggle floating terminal |
 | `<C-x>` | Escape terminal mode |
+
+*(Note: `<A-h>` terminal toggle is reclaimed for Tmux left navigation).*
 
 ### Which-key
 
