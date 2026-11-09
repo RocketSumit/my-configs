@@ -22,3 +22,8 @@ map("n", "<leader>fg", "<cmd>Telescope live_grep<CR>", { desc = "telescope live 
 map("n", "<leader>lg", function()
   require("nvchad.term").toggle { pos = "float", id = "lazygit", cmd = "lazygit" }
 end, { desc = "git lazygit" })
+
+-- Docker: LazyDocker floating terminal via NvChad native terminal
+map("n", "<leader>ld", function()
+  require("nvchad.term").toggle { pos = "float", id = "lazydocker", cmd = "lazydocker" }
+end, { desc = "docker lazydocker" })

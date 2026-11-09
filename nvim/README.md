@@ -34,7 +34,8 @@ this repo layers custom plugins, LSP servers, formatters and keymaps on top.
    Mason installs these automatically on first launch (`lua/plugins/init.lua`):
    `basedpyright`, `ruff`, `black`, `clangd`, `clang-format`,
    `yaml-language-server`, `json-lsp`, `marksman`, `lua-language-server`,
-   `stylua`, `html-lsp`, `css-lsp`, `prettier`.
+   `stylua`, `html-lsp`, `css-lsp`, `prettier`,
+   `dockerfile-language-server`, `docker-compose-language-service`, `hadolint`.
    Run `:Mason` to check status or add more.
 
 4. **Keeping it up to date**
@@ -122,11 +123,12 @@ Opening nvim directly on a directory (`nvim .`) auto-opens the tree
 | `<leader>gt` | Git status |
 | `<leader>th` | Pick colorscheme |
 
-### Git
+### Git & Docker
 
 | Key | Action |
 |---|---|
-| `<leader>lg` | Open LazyGit |
+| `<leader>lg` | Open LazyGit (floating terminal) |
+| `<leader>ld` | Open LazyDocker (floating terminal) |
 
 Gitsigns is enabled for gutter change markers only (no custom hunk keymaps
 configured).

@@ -50,6 +50,9 @@ return {
         "html-lsp", -- HTML LSP
         "css-lsp", -- CSS LSP
         "prettier", -- Prettier Formatter
+        "dockerfile-language-server", -- Dockerfile LSP
+        "docker-compose-language-service", -- Docker Compose LSP
+        "hadolint", -- Dockerfile linter
       },
     },
   },
@@ -186,6 +189,7 @@ return {
         "yaml",
         "markdown",
         "markdown_inline",
+        "dockerfile",
       },
     },
   },
