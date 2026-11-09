@@ -35,7 +35,8 @@ this repo layers custom plugins, LSP servers, formatters and keymaps on top.
    `basedpyright`, `ruff`, `black`, `clangd`, `clang-format`,
    `yaml-language-server`, `json-lsp`, `marksman`, `lua-language-server`,
    `stylua`, `html-lsp`, `css-lsp`, `prettier`,
-   `dockerfile-language-server`, `docker-compose-language-service`, `hadolint`.
+   `dockerfile-language-server`, `docker-compose-language-service`, `hadolint`,
+   `cmake-language-server`, `gersemi`.
    Run `:Mason` to check status or add more.
 
 4. **Keeping it up to date**
@@ -132,6 +133,17 @@ Opening nvim directly on a directory (`nvim .`) auto-opens the tree
 
 Gitsigns is enabled for gutter change markers only (no custom hunk keymaps
 configured).
+
+### C++ & CMake
+
+| Key | Mode | Action |
+|---|---|---|
+| `<A-o>` / `<leader>sh` | n | Switch between C++ Header and Source (`.hpp` ↔ `.cpp`) |
+| `<leader>ih` | n | Toggle LSP Inlay Hints (parameter names, deduced types) |
+| `<leader>cg` | n | CMake Generate / Configure |
+| `<leader>cb` | n | CMake Build target |
+| `<leader>cr` | n | CMake Run target |
+| `<leader>ct` | n | CMake Select build target |
 
 ### LSP (active once a server attaches)
 

@@ -27,3 +27,18 @@ end, { desc = "git lazygit" })
 map("n", "<leader>ld", function()
   require("nvchad.term").toggle { pos = "float", id = "lazydocker", cmd = "lazydocker" }
 end, { desc = "docker lazydocker" })
+
+-- C++: Switch between Header and Source (.hpp <-> .cpp)
+map("n", "<A-o>", "<cmd>ClangdSwitchSourceHeader<cr>", { desc = "switch header / source" })
+map("n", "<leader>sh", "<cmd>ClangdSwitchSourceHeader<cr>", { desc = "switch header / source" })
+
+-- LSP: Toggle Inlay Hints
+map("n", "<leader>ih", function()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end, { desc = "LSP toggle inlay hints" })
+
+-- CMake: build system actions
+map("n", "<leader>cg", "<cmd>CMakeGenerate<cr>", { desc = "CMake generate / configure" })
+map("n", "<leader>cb", "<cmd>CMakeBuild<cr>", { desc = "CMake build target" })
+map("n", "<leader>cr", "<cmd>CMakeRun<cr>", { desc = "CMake run target" })
+map("n", "<leader>ct", "<cmd>CMakeSelectBuildTarget<cr>", { desc = "CMake select target" })

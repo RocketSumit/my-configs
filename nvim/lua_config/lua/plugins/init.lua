@@ -53,6 +53,8 @@ return {
         "dockerfile-language-server", -- Dockerfile LSP
         "docker-compose-language-service", -- Docker Compose LSP
         "hadolint", -- Dockerfile linter
+        "cmake-language-server", -- CMake LSP
+        "gersemi", -- CMake Formatter
       },
     },
   },
@@ -190,6 +192,7 @@ return {
         "markdown",
         "markdown_inline",
         "dockerfile",
+        "cmake",
       },
     },
   },
@@ -244,5 +247,31 @@ return {
     "windwp/nvim-ts-autotag",
     event = { "BufReadPost", "BufNewFile" },
     opts = {},
+  },
+
+  -- Clangd extensions: source/header switch, type hierarchy, memory layout, AST
+  {
+    "p00f/clangd_extensions.nvim",
+    lazy = true,
+    ft = { "c", "cpp" },
+    opts = {
+      inlay_hints = {
+        inline = false,
+      },
+    },
+  },
+
+  -- CMake project generation, build, run, and compile_commands symlinking
+  {
+    "Civitasv/cmake-tools.nvim",
+    lazy = true,
+    ft = { "c", "cpp", "cmake" },
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {
+      cmake_build_directory = "build/${variant:buildType}",
+      cmake_generate_options = { "-DCMAKE_EXPORT_COMPILE_COMMANDS=1" },
+      cmake_soft_link_compile_commands = true,
+      cmake_compile_commands_from_lsp = false,
+    },
   },
 }

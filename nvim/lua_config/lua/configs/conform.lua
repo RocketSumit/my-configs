@@ -8,6 +8,7 @@ local options = {
     markdown = { "prettier" },
     c = { "clang-format" },
     cpp = { "clang-format" },
+    cmake = { "gersemi" },
     yaml = { "prettier" },
   },
 

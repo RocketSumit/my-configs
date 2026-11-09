@@ -10,6 +10,7 @@ local servers = {
   "basedpyright",
   "dockerls",
   "docker_compose_language_service",
+  "cmake",
 }
 
 -- clangd is very chatty on stderr (build/index progress); Neovim logs all
