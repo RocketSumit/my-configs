@@ -75,7 +75,7 @@ set -g default-terminal "tmux-256color"
 # automatic detection relies on the COLORTERM environment variable being defined
 # to 'truecolor' or '24bit' or '$ tput colors' answering '16777216'
 # see https://github.com/termstandard/colors
-tmux_conf_24b_colour=auto
+tmux_conf_24b_colour=true
 
 
 # -- theming -------------------------------------------------------------------
@@ -110,24 +110,24 @@ tmux_conf_theme=enabled
 #tmux_conf_theme_colour_16="#d70000"   # red
 #tmux_conf_theme_colour_17="#e4e4e4"   # white
 
-# default theme (ansi)
-tmux_conf_theme_colour_1="colour0"
-tmux_conf_theme_colour_2="colour8"
-tmux_conf_theme_colour_3="colour8"
-tmux_conf_theme_colour_4="colour14"
-tmux_conf_theme_colour_5="colour11"
-tmux_conf_theme_colour_6="colour0"
-tmux_conf_theme_colour_7="colour15"
-tmux_conf_theme_colour_8="colour0"
-tmux_conf_theme_colour_9="colour11"
-tmux_conf_theme_colour_10="colour13"
-tmux_conf_theme_colour_11="colour10"
-tmux_conf_theme_colour_12="colour8"
-tmux_conf_theme_colour_13="colour15"
-tmux_conf_theme_colour_14="colour0"
-tmux_conf_theme_colour_15="colour0"
-tmux_conf_theme_colour_16="colour1"
-tmux_conf_theme_colour_17="colour15"
+# Gruvbox Dark 24-bit theme
+tmux_conf_theme_colour_1="#282828"    # bg0 (dark bar background)
+tmux_conf_theme_colour_2="#3c3836"    # bg1 (surface / inactive pill)
+tmux_conf_theme_colour_3="#504945"    # bg2 (medium surface)
+tmux_conf_theme_colour_4="#83a598"    # blue
+tmux_conf_theme_colour_5="#fabd2f"    # yellow (session indicator)
+tmux_conf_theme_colour_6="#282828"    # dark text
+tmux_conf_theme_colour_7="#ebdbb2"    # fg0 (light cream text)
+tmux_conf_theme_colour_8="#282828"    # dark
+tmux_conf_theme_colour_9="#fe8019"    # orange (active tab / prefix)
+tmux_conf_theme_colour_10="#d3869b"   # purple (top process)
+tmux_conf_theme_colour_11="#b8bb26"   # green (cpu)
+tmux_conf_theme_colour_12="#a89984"   # gray
+tmux_conf_theme_colour_13="#ebdbb2"   # light cream
+tmux_conf_theme_colour_14="#3c3836"   # dark surface
+tmux_conf_theme_colour_15="#282828"   # bg0
+tmux_conf_theme_colour_16="#fb4934"   # red (alerts)
+tmux_conf_theme_colour_17="#ebdbb2"   # white
 
 # window style
 tmux_conf_theme_window_fg="default"
@@ -199,12 +199,10 @@ tmux_conf_theme_terminal_title="#h ❐ #S ● #I #W"
 #     - #{hostname_full_ssh}
 #     - #{username}
 #     - #{username_ssh}
-tmux_conf_theme_window_status_fg="$tmux_conf_theme_colour_6"
-tmux_conf_theme_window_status_bg="$tmux_conf_theme_colour_3"
-tmux_conf_theme_window_status_attr="bold"
-tmux_conf_theme_window_status_format="#I #W#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,!,}#{?window_zoomed_flag,Z,}"
-#tmux_conf_theme_window_status_format="#{circled_window_index} #W#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,!,}#{?window_zoomed_flag,Z,}"
-#tmux_conf_theme_window_status_format="#I #W#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,🔔,}#{?window_zoomed_flag,🔍,}"
+tmux_conf_theme_window_status_fg="$tmux_conf_theme_colour_7"
+tmux_conf_theme_window_status_bg="$tmux_conf_theme_colour_1"
+tmux_conf_theme_window_status_attr="none"
+tmux_conf_theme_window_status_format="#[fg=#3c3836,bg=#282828]#[fg=#ebdbb2,bg=#3c3836]#{circled_window_index} #W#{?window_bell_flag, 󰂞,}#{?window_zoomed_flag, 󰍉,}#[fg=#3c3836,bg=#282828]"
 
 # window current status style
 #   - built-in variables are:
@@ -217,36 +215,30 @@ tmux_conf_theme_window_status_format="#I #W#{?#{||:#{window_bell_flag},#{window_
 #     - #{username}
 #     - #{username_ssh}
 tmux_conf_theme_window_status_current_fg="$tmux_conf_theme_colour_1"
-tmux_conf_theme_window_status_current_bg="$tmux_conf_theme_colour_4"
-tmux_conf_theme_window_status_current_attr="bold"
-#tmux_conf_theme_window_status_current_format="#I #W#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,!,}#{?window_zoomed_flag,Z,}"
-tmux_conf_theme_window_status_current_format="#{circled_window_index} #W#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,!,}#{?window_zoomed_flag,Z,}"
-#tmux_conf_theme_window_status_current_format="#I #W#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,🔔,}#{?window_zoomed_flag,🔍,}"
+tmux_conf_theme_window_status_current_bg="$tmux_conf_theme_colour_1"
+tmux_conf_theme_window_status_current_attr="none"
+tmux_conf_theme_window_status_current_format="#[fg=#fe8019,bg=#282828]#[fg=#282828,bg=#fe8019,bold]#{circled_window_index} #W#{?window_bell_flag, 󰂞,}#{?window_zoomed_flag, 󰍉,}#[fg=#fe8019,bg=#282828]"
 
 # window activity status style
 tmux_conf_theme_window_status_activity_fg="default"
 tmux_conf_theme_window_status_activity_bg="default"
-tmux_conf_theme_window_status_activity_attr="underscore"
+tmux_conf_theme_window_status_activity_attr="none"
 
 # window bell status style
-tmux_conf_theme_window_status_bell_fg="$tmux_conf_theme_colour_5"
+tmux_conf_theme_window_status_bell_fg="$tmux_conf_theme_colour_16"
 tmux_conf_theme_window_status_bell_bg="default"
 tmux_conf_theme_window_status_bell_attr="blink,bold"
 
 # window last status style
-tmux_conf_theme_window_status_last_fg="$tmux_conf_theme_colour_6"
-tmux_conf_theme_window_status_last_bg="$tmux_conf_theme_colour_3"
-tmux_conf_theme_window_status_last_attr="bold"
+tmux_conf_theme_window_status_last_fg="default"
+tmux_conf_theme_window_status_last_bg="default"
+tmux_conf_theme_window_status_last_attr="none"
 
 # status left/right sections separators
-#tmux_conf_theme_left_separator_main=""
-#tmux_conf_theme_left_separator_sub="|"
+tmux_conf_theme_left_separator_main=""
+tmux_conf_theme_left_separator_sub=""
 tmux_conf_theme_right_separator_main=""
-tmux_conf_theme_right_separator_sub="|"
-tmux_conf_theme_left_separator_main='\uE0B0'  # /!\ you don't need to install Powerline
-tmux_conf_theme_left_separator_sub='\uE0B1'   #   you only need fonts patched with
-#tmux_conf_theme_right_separator_main='\uE0B2' #   Powerline symbols or the standalone
-#tmux_conf_theme_right_separator_sub='\uE0B3'  #   PowerlineSymbols.otf font, see README.md
+tmux_conf_theme_right_separator_sub=""
 
 # status left/right content:
 #   - separate main sections with "|"
@@ -278,21 +270,18 @@ tmux_conf_theme_left_separator_sub='\uE0B1'   #   you only need fonts patched wi
 #tmux_conf_theme_status_left=" ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} "
 #tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} "
 #tmux_conf_theme_status_right=" #{cpu_bg_color} CPU: #{cpu_icon} #{cpu_percentage} RAM: #{ram_icon} #{ram_percentage}| %a %h-%d %H:%M "
-tmux_conf_theme_status_left=" ❐ #S "
-tmux_conf_theme_status_right=" #{cpu_bg_color} CPU: #{cpu_percentage} RAM: #{ram_percentage} | #{gpu_bg_color} GPU: #{gpu_icon} #{gpu_percentage} | #{battery_vbar} #{battery_percentage}"
-
-
-set -g @cpu_low_fg_color "#[fg=#00ff00]"
+tmux_conf_theme_status_left=" #{?client_prefix,#[fg=#fe8019],#[fg=#fabd2f]}#[bg=#282828]#{?client_prefix,#[fg=#282828]#[bg=#fe8019]#[bold] 󰌌 #S ,#[fg=#282828]#[bg=#fabd2f]#[bold]  #S }#{?client_prefix,#[fg=#fe8019],#[fg=#fabd2f]}#[bg=#282828] "
+tmux_conf_theme_status_right="#{top_proc}#[fg=#3c3836,bg=#282828]#[fg=#b8bb26,bg=#3c3836] #{cpu_percentage} #[fg=#83a598]󰍛 #{ram_percentage}#[fg=#3c3836,bg=#282828] #{gpu_stat}#{batt_stat}#[fg=#83a598,bg=#282828]#[fg=#282828]#[bg=#83a598]#[bold]󰥔 %R#[fg=#83a598,bg=#282828] "
 
 # status left style
-tmux_conf_theme_status_left_fg="$tmux_conf_theme_colour_6,$tmux_conf_theme_colour_7,$tmux_conf_theme_colour_8"
-tmux_conf_theme_status_left_bg="$tmux_conf_theme_colour_9,$tmux_conf_theme_colour_10,$tmux_conf_theme_colour_11"
-tmux_conf_theme_status_left_attr="bold,none,none"
+tmux_conf_theme_status_left_fg="$tmux_conf_theme_colour_1"
+tmux_conf_theme_status_left_bg="$tmux_conf_theme_colour_1"
+tmux_conf_theme_status_left_attr="none"
 
 # status right style
-tmux_conf_theme_status_right_fg="$tmux_conf_theme_colour_1,$tmux_conf_theme_colour_1,$tmux_conf_theme_colour_1"
-tmux_conf_theme_status_right_bg="$tmux_conf_theme_colour_1,$tmux_conf_theme_colour_1,$tmux_conf_theme_colour_1"
-tmux_conf_theme_status_right_attr="none,none,bold"
+tmux_conf_theme_status_right_fg="$tmux_conf_theme_colour_1"
+tmux_conf_theme_status_right_bg="$tmux_conf_theme_colour_1"
+tmux_conf_theme_status_right_attr="none"
 
 # pairing indicator
 tmux_conf_theme_pairing="⚇"                 # U+2687
@@ -384,6 +373,9 @@ tmux_conf_copy_to_os_clipboard=true
 
 # increase history size
 #set -g history-limit 10000
+
+# refresh status line every 5 seconds
+set -g status-interval 5
 
 # start with mouse mode enabled
 set -g mouse on
@@ -478,6 +470,60 @@ set -g @plugin 'tmux-plugins/tmux-cpu'
 #
 # online() {
 #   ping -c 1 1.1.1.1 >/dev/null 2>&1 && printf '✔' || printf '✘'
+# }
+#
+# top_proc() {
+#   p=$(ps -eo %cpu,comm --sort=-%cpu 2>/dev/null | awk 'NR>1 && $2 !~ /^(ps|awk|sh|cut|sleep)$/ {
+#     cmd = $2
+#     if (length(cmd) > 10) cmd = substr(cmd, 1, 8) ".."
+#     printf "%s %s", cmd, $1
+#     exit
+#   }')
+#   if [ -n "$p" ]; then
+#     cmd=$(echo "$p" | cut -d' ' -f1)
+#     cpu=$(echo "$p" | cut -d' ' -f2)
+#     cpu_int=${cpu%.*}
+#     if [ "${cpu_int:-0}" -ge 50 ] 2>/dev/null; then
+#       accent="#fb4934"
+#     else
+#       accent="#d3869b"
+#     fi
+#     printf "#[fg=#504945,bg=#282828]#[fg=%s,bg=#504945]󱐋 #[fg=#ebdbb2,bg=#504945]%s #[fg=%s,bg=#504945]%s%%#[fg=#504945,bg=#282828] " "$accent" "$cmd" "$accent" "$cpu"
+#   fi
+# }
+#
+# gpu_stat() {
+#   if command -v nvidia-smi >/dev/null 2>&1; then
+#     vals=$(nvidia-smi --query-gpu=utilization.gpu,temperature.gpu --format=csv,noheader,nounits 2>/dev/null | head -n1)
+#     if [ -n "$vals" ]; then
+#       u=$(echo "$vals" | cut -d',' -f1 | tr -d ' ')
+#       t=$(echo "$vals" | cut -d',' -f2 | tr -d ' ')
+#       printf "#[fg=#504945,bg=#282828]#[fg=#8ec07c,bg=#504945]󰢮 #[fg=#ebdbb2,bg=#504945]%s%% %s°C#[fg=#504945,bg=#282828] " "$u" "$t"
+#       return
+#     fi
+#   fi
+# }
+#
+# batt_stat() {
+#   bat="/sys/class/power_supply/BAT0"
+#   [ ! -d "$bat" ] && bat=$(ls -d /sys/class/power_supply/BAT* 2>/dev/null | head -n1)
+#   if [ -n "$bat" ] && [ -d "$bat" ]; then
+#     capacity=$(cat "$bat/capacity" 2>/dev/null)
+#     b_stat=$(cat "$bat/status" 2>/dev/null)
+#     case "$b_stat" in
+#       Charging) icon="󰂄" ;;
+#       Full) icon="󰁹" ;;
+#       *)
+#         if [ "$capacity" -ge 80 ] 2>/dev/null; then icon="󰁹"
+#         elif [ "$capacity" -ge 60 ] 2>/dev/null; then icon="󰂀"
+#         elif [ "$capacity" -ge 40 ] 2>/dev/null; then icon="󰁾"
+#         elif [ "$capacity" -ge 20 ] 2>/dev/null; then icon="󰁼"
+#         else icon="󰁺"
+#         fi
+#         ;;
+#     esac
+#     printf "#[fg=#3c3836,bg=#282828]#[fg=#fabd2f,bg=#3c3836]%s #[fg=#ebdbb2,bg=#3c3836]%s%%#[fg=#3c3836,bg=#282828] " "$icon" "$capacity"
+#   fi
 # }
 #
 # "$@"
