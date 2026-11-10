@@ -97,6 +97,15 @@ below covers this config's most-used bindings.
 | `]m` / `[m` | n | Jump to next / previous function start |
 | `]M` / `[M` | n | Jump to next / previous function end |
 
+- **[nvim-surround](https://github.com/kylechui/nvim-surround)**: Delimiter manipulation:
+
+| Key | Mode | Action |
+|---|---|---|
+| `ys<motion><char>` | n | Add surround (e.g. `ysiw)` wraps word in `()`, `ysiw>` in `<>`) |
+| `ds<char>` | n | Delete surround (e.g. `ds"` deletes surrounding `"`) |
+| `cs<old><new>` | n | Change surround (e.g. `cs"'` changes `"` to `'`) |
+| `S<char>` | x | Surround visual selection with delimiter |
+
 ### File explorer — nvim-tree
 
 | Key | Mode | Action |
@@ -160,6 +169,17 @@ configured).
 Neovim 0.11+ also ships built-in LSP defaults on top of these: `K` (hover),
 `grn` (rename), `gra` (code action), `grr` (references), `gri`
 (implementation), `gO` (document symbols).
+
+### Trouble (Diagnostics & Symbols)
+
+| Key | Action |
+|---|---|
+| `<leader>xx` | Toggle workspace diagnostics panel |
+| `<leader>xX` | Toggle current buffer diagnostics |
+| `<leader>cs` | Toggle symbol explorer panel |
+| `<leader>cl` | Toggle LSP definitions / references list |
+| `<leader>xL` | Toggle location list |
+| `<leader>xQ` | Toggle quickfix list |
 
 ### Terminal
 
